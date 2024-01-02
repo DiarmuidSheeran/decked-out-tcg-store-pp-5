@@ -67,7 +67,10 @@
   
           <ul class="list-unstyled">
             <li>
-              <a href="#">Shop</a>
+              <a href="{% url 'product_list' %}">Shop</a>
+            </li>
+            <li>
+                <a href="{% url 'product_search' %}">Search for Products</a>
             </li>
             <li>
               <a href="{% url 'news' %}">News</a>
