@@ -2,5 +2,49 @@
 {% load static %}
 
 {% block content %}
-<h1>Product Search</h1>
+{% if results %}
+    <h2 style="color: white; text-align: center;">Search Results for: {{search_query}}</h2>
+    <div class="container-fluid mt-5 mx-auto">
+        <div class="col-md-12">
+            <div class="row">
+                {% for product in results %}
+                    <div class="col-md-6 mb-4 pb-4 col-lg-6 mb-lg-4 pb-lg-4 col-xl-3 mb-xl-4 pb-xl-4">
+                        <div class="card custom-card">
+                            <a href="{% url 'product_detail' id=product.id slug=product.slug %}" style="text-decoration: none; color:black;">
+                                <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}">
+                                <div class="card-body custom-card-body" style="color: black;">
+                                    <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
+                                </div>
+                            </a>
+                            <div class="card-footer custom-card-footer">
+                                {% if product.on_special_offer %}
+                                    {% if product.discounted_price %}
+                                        <p class="card-text price-text" style="color: red; font-weight: bolder;">
+                                            <small class="btn btn-sm btn-danger special-offer" style="font-size: 10px;">Special Offer</small><br>
+                                            <del style="color: black; font-size: smaller;">Was: €{{ product.price }}</del><br>
+                                            Now: €{{ product.discounted_price }}
+                                        </p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="card-text price-text mt-1" style="color: black; font-weight: bolder;">
+                                        <br><br>Price: €{{ product.price }}
+                                    </p>
+                                {% endif %}
+                                <button type="button" class="btn btn-success add-cart-btn" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    <h2 style="color: white; text-align: center;">Search Results for: {{search_query}}</h2>
+    <br>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <h5> No products matched your search</h5>
+        <a href="{% url 'landing' %}" class="btn btn-warning">Back to Home</a>
+    </div>
+    <br>
+{% endif %}
 {% endblock %}

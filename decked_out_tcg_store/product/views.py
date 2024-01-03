@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from .forms import ProductSearchForm
 from .models import Product, Category
 
 # Create your views here.
@@ -29,7 +30,21 @@ def product_detail(request, id, slug):
     return render(request,'products/product_detail.html', context)
 
 def product_search(request):
-    
-    return render(request, 'products/product_search.html')
+    form = ProductSearchForm(request.GET)
+    search_query = form.cleaned_data.get('search_query', '') if form.is_valid() else ''
+
+    if form.is_valid():
+        search_query = form.cleaned_data['search_query']
+        results = Product.objects.filter(name__icontains=search_query)
+    else:
+        results = None
+
+    context = {
+        'form': form,
+        'results': results,
+        'search_query': search_query,
+    }
+
+    return render(request, 'products/product_search.html', context)
 
 

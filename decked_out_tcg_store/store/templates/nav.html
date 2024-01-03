@@ -16,12 +16,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
      
-                    <form class="form-inline my-2 my-lg-0" action="#" method="get">
-                        <input class="form-control mr-sm-2" id="search-bar"type="search" placeholder="What are you looking for?" aria-label="Search" name="query">
-                        <button class="btn btn-outline-warning " type="submit" style="background-color: #fff">
-                            <i class="fa-solid fa-magnifying-glass" style="color: #000; background-color: #fff"></i>
-                        </button>
-                    </form>
+            <form class="form-inline my-2 my-lg-0" action="{% url 'product_search' %}" method="get">
+                <input class="form-control mr-sm-2" id="search-bar" type="search" placeholder="What are you looking for?" aria-label="Search" name="search_query">
+                <button class="btn btn-outline-warning" type="submit" style="background-color: #fff">
+                    <i class="fa-solid fa-magnifying-glass" style="color: #000; background-color: #fff"></i>
+                </button>
+            </form>
                 
                    
               
