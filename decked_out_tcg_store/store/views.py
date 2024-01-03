@@ -1,9 +1,14 @@
 from django.shortcuts import render
-
+from .models import SlideshowImage
 # Create your views here.
 def landing(request):
-    
-    return render(request, 'landing.html')
+    slideshow_images = SlideshowImage.objects.all()
+
+    context = {
+        'slideshow_images': slideshow_images
+    }
+
+    return render(request, 'landing.html', context)
 
 def about_us(request):
     

@@ -75,6 +75,8 @@ body{
     }
 }
 
+/*------ Product Page Styles --------*/
+
 .custom-card-body {
     height: 130px;
 }
@@ -98,4 +100,12 @@ body{
 
 #custom-width {
     width: 70px; 
+}
+
+/* ----- Landing Page Styles -------*/ 
+
+.carousel-img {
+    object-fit: contain;
+    height: 300px;
+    width: 100%;
 }
