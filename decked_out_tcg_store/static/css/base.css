@@ -81,6 +81,17 @@ body{
 
 .custom-card-footer {
     font-family: 'Roboto Mono', monospace;
-    height: 130px;
+    height: 150px;
 }
 
+@media (min-width: 1312px) and (max-width: 1434px) {
+    .custom-card {
+        font-size: 90%;
+    }
+  }
+
+@media (min-width: 1200px) and (max-width: 1311px) {
+    .custom-card {
+        font-size: 60%;
+    }
+  }
