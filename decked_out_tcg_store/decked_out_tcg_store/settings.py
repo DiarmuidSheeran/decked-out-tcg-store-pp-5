@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [
     ]
 CSRF_TRUSTED_ORIGINS = [
     'https://*.8000-diarmuidshe-deckedouttc-310ut4l7b7l.ws-eu107.gitpod.io',
-    # Add other trusted origins as needed
 ]
     
 
@@ -51,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'store',
     'product',
+    'user',
 ]
 
 MIDDLEWARE = [
