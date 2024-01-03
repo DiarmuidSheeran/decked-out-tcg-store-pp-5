@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Product, Category
 
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'display_categories', 'quantity_available', 'is_featured', 'created_at', 'updated_at']
+    list_display = ['name', 'price', 'display_categories', 'quantity_available','on_special_offer', 'is_featured', 'created_at', 'updated_at']
     search_fields = ['name', 'categories__name']
     list_filter = ['categories', 'is_featured']
     prepopulated_fields = {'slug': ('name',)}

@@ -6,7 +6,16 @@
 
     <div class="row">
         <div class="col-md-3">
-            Hello
+            <form method="get" action="{% url 'product_list' %}" class="mb-4">
+                <label for="category"><h3 class="text-center mb-4">Filter by Categories</h3></label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">Choose Filter</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary mt-3">Apply Filter</button>
+            </form>
         </div>
 
     <div class="col-md-6">
