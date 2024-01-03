@@ -25,9 +25,11 @@
             {% for product in products %}
                 <div class="col-md-6 mb-4 pb-4 col-lg-6 mb-lg-4 pb-lg-4 col-xl-3 mb-xl-4 pb-xl-4">
                     <div class="card custom-card">
-                        <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}">
-                        <div class="card-body custom-card-body" style="color: black;">
-                            <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
+                        <a href="{% url 'product_detail' id=product.id slug=product.slug %}" style="text-decoration: none; color:black;">
+                            <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}">
+                            <div class="card-body custom-card-body" style="color: black;">
+                                <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
+                        </a>
                         </div>
                         <div class="card-footer custom-card-footer">
                             {% if product.on_special_offer %}
