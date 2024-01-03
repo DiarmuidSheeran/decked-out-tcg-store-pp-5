@@ -1,0 +1,72 @@
+body{
+	background-color: #000;
+    color: #fff;
+}
+
+/*------ Cart Icon Styling -----*/
+#cart-icon{
+	width:25px;
+	display: inline-block;
+
+}
+
+/*------- Search Bar Styling -----*/
+#search-bar {
+    width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 1199px) {
+    #search-bar {
+        width: 450px;
+    }
+}
+
+@media (max-width: 991px) {
+    #search-bar {
+        width: 668px;
+    }
+}
+
+@media (max-width: 767px) {
+    #search-bar {
+        width: 487px;
+    }
+}
+
+@media (max-width: 560px) {
+    #search-bar {
+        width: 470px;
+    }
+}
+
+@media (max-width: 543px) {
+    #search-bar {
+        width: 400px;
+    }
+}
+
+@media (max-width: 473px) {
+    #search-bar {
+        width: 340px;
+    }
+}
+
+@media (max-width: 413px) {
+    #search-bar {
+        width: 280px;
+    }
+}
+
+@media (max-width: 353px) {
+    #search-bar {
+        width: 250px;
+    }
+}
+
+@media (max-width: 323px) {
+    #search-bar {
+        width: 200px;
+    }
+}
