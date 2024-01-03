@@ -2,5 +2,45 @@
 {% load static %}
 
 {% block content %}
-<h1>Product List</h1>
+<div class="container-fluid mt-5">
+
+    <div class="row">
+        <div class="col-md-3">
+            Hello
+        </div>
+
+    <div class="col-md-6">
+        <h3 class="text-center mb-4"> Product List </h3>
+        <div class="row">
+            
+            {% for product in products %}
+                <div class="col-md-3 mb-4 pb-4">
+                    <div class="card">
+                        <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}">
+                        <div class="card-body custom-card-body" style="color: black;">
+                            <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
+                        </div>
+                        <div class="card-footer custom-card-footer">
+                            {% if product.on_special_offer %}
+                                {% if product.discounted_price %}
+                                    <p class="card-text price-text" style="color: red; font-weight: bolder;"><del style="color: black; font-size: smaller;">Was: €{{ product.price }}</del><br> Now: €{{ product.discounted_price }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="card-text price-text" style="color: black; font-weight: bolder;"><br>Price: €{{ product.price }}</p>
+                            {% endif %}
+                       
+                                <button type="button" class="btn btn-success add-cart-btn" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+                        </div>
+                       
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="container">
+            Hello
+        </div>
+    </div>
+</div>
 {% endblock %}

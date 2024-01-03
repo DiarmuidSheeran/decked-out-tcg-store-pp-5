@@ -17,7 +17,7 @@ class Product(models.Model):
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=500)
     on_special_offer = models.BooleanField(default=False)
     discounted_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 
