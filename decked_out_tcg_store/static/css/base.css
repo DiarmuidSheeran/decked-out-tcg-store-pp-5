@@ -109,3 +109,24 @@ body{
     height: 300px;
     width: 100%;
 }
+
+.cat-card {
+    background-color: black;
+    border-color: red;
+    border-radius: 20px;
+    border-width: 2px;
+    border-right: 5px;
+    border-left: 5px;
+}
+.cat-card a {
+    text-decoration: none;
+    color: white;
+}
+
+.rotate-20 {
+    transform: rotate(-20deg);
+}
+
+.rotate-minus-20 {
+    transform: rotate(20deg);
+}

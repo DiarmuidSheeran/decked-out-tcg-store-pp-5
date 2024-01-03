@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h1>Landing</h1>
+<h1 style="text-align: center;">Decked Out TCG Store</h1>
 <div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -27,5 +27,48 @@
             </div>
         </div>
     </div>
+    <div class="row mt-5">
+        <div class="col-md-3">
+            <div class="card text-center cat-card">
+                <a href="{% url 'product_list' %}?category=2">
+                    <div class="card-body" >
+                        <h2 class="card-title">Shop Pokemon</h2>
+                        <img src="{% static 'images/pokemon-pack-resize.png' %}" alt="yugioh-logo" class="img-fluid mb-3">
+                       
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center cat-card">
+                <a href="{% url 'product_list' %}?category=1">
+                    <div class="card-body">
+                        <h2 class="card-title">Shop Yu-Gi-Oh!</h2>
+                        <img src="{% static 'images/blue-eyes.png' %}" alt="yugioh-logo" class="img-fluid mb-3">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center cat-card">
+                <a href="{% url 'product_list' %}?category=3">
+                    <div class="card-body">
+                        <h2 class="card-title">Shop Accesesories</h2>
+                        <img src="{% static 'images/card-sleeve-resize.png' %}" alt="yugioh-logo" class="img-fluid mb-3">
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center cat-card">
+                <a href="{% url 'product_list' %}">
+                    <div class="card-body">
+                        <h2 class="card-title" style="margin-bottom: 62px;">View All Products</h2>
+                        <img src="{% static 'images/DarkMagician.png' %}" alt="yugioh-logo" class="img-fluid mb-3 rotate-20">
+                        <img src="{% static 'images/blastoise.png' %}" alt="yugioh-logo" class="img-fluid mb-3 rotate-minus-20">
+                    </div>
+                </a>
+            </div>
+        </div>
 </div>
 {% endblock %}
