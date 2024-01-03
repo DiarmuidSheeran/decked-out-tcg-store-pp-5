@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Checkout</h1>
+<a href="{% url 'order_summary' %}" class="btn btn-warning">Make Payment</a>
+{% endblock %}
