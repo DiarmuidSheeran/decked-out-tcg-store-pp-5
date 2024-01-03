@@ -32,7 +32,7 @@
                         <div class="card-footer custom-card-footer">
                             {% if product.on_special_offer %}
                                 {% if product.discounted_price %}
-                                    <p class="card-text price-text" style="color: red; font-weight: bolder;"><del style="color: black; font-size: smaller;">Was: €{{ product.price }}</del><br> Now: €{{ product.discounted_price }}</p>
+                                    <p class="card-text price-text" style="color: red; font-weight: bolder;"><del style="color: black; font-size: smaller;">Was: €{{ product.price }}</del> <small class="btn btn-sm btn-danger " style="font-size: 10px;">Specail Offer</small><br> Now: €{{ product.discounted_price }}</p>
                                 {% endif %}
                             {% else %}
                                 <p class="card-text price-text" style="color: black; font-weight: bolder;"><br>Price: €{{ product.price }}</p>

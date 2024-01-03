@@ -16,14 +16,14 @@ body{
 
 /*------- Search Bar Styling -----*/
 #search-bar {
-    width: 620px;
+    width: 680px;
     margin-left: auto;
     margin-right: auto;
 }
 
 @media (max-width: 1199px) {
     #search-bar {
-        width: 450px;
+        width: 500px;
     }
 }
 
