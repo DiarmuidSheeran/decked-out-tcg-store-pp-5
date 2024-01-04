@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login, logout
 from product.models import Product, Category
+from .forms import CreateUserForm
 
 # Create your views here.
 def account(request):
