@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category
-from .forms import EditProductForm
+from .forms import EditProductForm, CreateProductForm
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
@@ -68,4 +68,18 @@ def edit_product(request,  id, slug):
         'form': form
     }
     return render(request, 'products/edit_product.html', context)
+
+def create_product(request):
+    if request.method == 'POST':
+        form = CreateProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_panel')
+    else:
+        form = CreateProductForm()
+
+    context = {
+        'form': form
+    }
+    return render(request, 'products/create_product.html', context)
 
