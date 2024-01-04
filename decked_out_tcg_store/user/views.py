@@ -34,3 +34,7 @@ def logoutUser(request):
   
     logout(request)
     return redirect('landing')
+
+def admin_panel(request):
+    
+    return render(request, 'user/admin_panel.html')
