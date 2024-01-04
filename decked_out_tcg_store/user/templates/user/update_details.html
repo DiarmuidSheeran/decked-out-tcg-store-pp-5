@@ -2,5 +2,82 @@
 {% load static %}
 
 {% block content %}
-<h1>Update Details</h1>
+<div class="container forms-content">
+	<div class="row">
+        <div class="col-md-8 offset-md-2">
+			<div class="forms-content">
+				<div class="d-flex justify-content-center">
+					<h3>UPDATE ACCOUNT INFO</h3>
+				</div>
+				<div class="d-flex justify-content-center">
+                    <p>Keep ypur Account Details up to Date!</p>
+                </div>
+				<div class="d-flex justify-content-center form_container">
+
+					<form method="POST" action="{% url 'update_details' %}" enctype="multipart/form-data">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append ">
+								<span class="input-group-text span"><i class="fas fa-user" style="color: #fff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="{{profile.fname}}" name="{{ form.fname.name }}" value="{{ profile.fname }}">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append ">
+								<span class="input-group-text span"><i class="fas fa-user" style="color: #fff;"></i></span>
+								
+							</div>
+							<input type="text" class="form-control" placeholder="{{profile.lname}}" name="{{ form.lname.name }}" value="{{ profile.lname }}">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append ">
+								<span class="input-group-text span"><i class="fas fa-user" style="color: #fff;"></i></span>   
+							</div>
+							<input type="text" class="form-control" placeholder="user.username" name="{{ form.username.name }}" value="{{ user.username }}">
+						</div>
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text span"><i class="fas fa-map-marker" style="color: #fff;"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Shipping Address Line 1" name="{{ form.shipping_address_line_1.name }}" value="{{ profile.shipping_address_line_1 }}">
+                        </div>
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text span"><i class="fas fa-map-marker" style="color: #fff;"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Shipping Address Line 2" name="{{ form.shipping_address_line_2.name }}" value="{{ profile.shipping_address_line_2 }}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text span"><i class="fas fa-map-marker" style="color: #fff;"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Shipping Address Town" name="{{ form.shipping_address_town.name }}" value="{{ profile.shipping_address_town }}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text span"><i class="fas fa-map-marker" style="color: #fff;"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Shipping Address County" name="{{ form.shipping_address_county.name }}" value="{{ profile.shipping_address_county }}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text span"><i class="fas fa-map-marker" style="color: #fff;"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Shipping Address Eircode" name="{{ form.shipping_address_eircode.name }}" value="{{ profile.shipping_address_eircode }}">
+                        </div>
+                        
+						<div class="d-flex justify-content-center mt-3 login_container span">
+							<button class="btn btn btn-primary btn-sm btn-block update-btn" type="submit">Update Account Info</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
