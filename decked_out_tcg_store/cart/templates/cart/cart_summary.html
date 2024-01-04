@@ -1,16 +1,176 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-<h1>Cart Summary</h1>
 
-{% for product, quantity in cart_products.items %}
-{{ product.name }}{{ product.price|floatformat:2 }}
-<br>
-{{ totals }}
-{{ quantities }}
-<br>
-{% endfor %}
+<div class="container-fluid mt-4">
+  
+    <div class="row">
+        <div class="col-md-6 ml-4">
+            <h3 class="text-center mb-4"> Cart List </h3>
+            <div class="row">
+                {% if cart_products %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="color: white;" scope="col"><strong>Product</strong></th>
+                                <th style="color: white;" scope="col"><strong>Price</strong></th>
+                                <th style="color: white;" scope="col"><strong>Quantity</strong></th>
+                                <th style="color: white;" scope="col"><strong>Update</strong></th>
+                                <th style="color: white;" scope="col"><strong>Remove</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product, quantity in cart_products.items %}
+                                <tr>
+                                    <td>
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail" style="max-width: 80px;">
+                                        <span style="color: white;">{{ product.name }}</span>
+                                    </td>
+                                    <td>
+                                        {% if product.on_special_offer and product.discounted_price %}
+                                            <span style="color: white;">€{{ product.discounted_price|floatformat:2 }}</span>
+                                        {% else %}
+                                            <span style="color: white;">€{{ product.price|floatformat:2 }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control qty-cart" id="quantity{{ product.id }}" value="{{ quantity }}" min="1">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
+                                                <button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" data-index="{{ product.id }}" class="btn btn-secondary update-cart">Update</button>
+                                        
+                                    </td>
+                                    <td>
+                                        <button type="button" data-index="{{ product.id }}" class="btn btn-danger delete-product">Remove</button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <div class="text-center">
+                            <h4>Your cart is empty</h4>
+                            <a href="{% url 'product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="container">
+                    <h3 class="text-center mb-4 mt-4">Cart Summary</h3>
+                    {% if cart_products %}
+                    <div class="row mt-6">
+                        {% for product,  quantity in cart_products.items %}
+                        <div class="col-md-12 mb-4">
+                            <h5 class="card-title text-center ">{{ product.name }}</h5>
+                            <p class="card-text text-center ">
+                                {% if product.on_special_offer %}
+                                    <span class="badge bg-warning text-dark">Special Offer!</span>
+                                {% endif %}
+                                {% if product.on_special_offer and product.discounted_price %}
+                                    <p class="card-text price-text text-center ">
+                                        @ €{{ product.discounted_price }} x {{ quantity }}
+                                    </p>
+                                {% else %}
+                                    <p class="card-text price-text text-center ">@ €{{ product.price }} x {{ quantity }}</p>
+                                {% endif %}
+                               
+                           
+                            </p>
+                            {% endfor %}
+                            {% else %}
+                                <h4 class="text-center" style="border-style: solid; border-width: 5px; ">Your cart is empty</h4>
+                        {% endif %}
+                        <h3 class="mt-4 text-center">Total: €{{ totals }}</h3>
+                        <a href="{% url 'checkout' %}" class="mt-4 btn btn-primary d-block mx-auto">Go to Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
-<a href="{% url 'checkout' %}" class="btn btn-warning">Checkout</a>
+<script>
+    $(document).on('click', '.increase-quantity', function (e) {
+    e.preventDefault();
+    var productid = $(this).data('index');
+    var quantityInput = $('#quantity' + productid);
+    quantityInput.val(parseInt(quantityInput.val()) + 1);
+});
+
+$(document).on('click', '.decrease-quantity', function (e) {
+    e.preventDefault();
+    var productid = $(this).data('index');
+    var quantityInput = $('#quantity' + productid);
+    var currentQuantity = parseInt(quantityInput.val());
+    if (currentQuantity > 1) {
+        quantityInput.val(currentQuantity - 1);
+    }
+});
+    var cartUpdateUrl = "{% url 'cart_update' %}";
+    
+    $(document).on('click', '.update-cart', function(e){
+        e.preventDefault();
+        var productid = $(this).data('index');
+        var quantityInput = $('#quantity' + productid);
+    
+        $.ajax({
+        type: 'POST',
+        url: cartUpdateUrl,
+        data: {
+          product_id: $(this).data('index'),
+          product_qty: quantityInput.val(),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+    
+        error: function(xhr, errmsg, err){
+    
+        }
+    
+    
+        });
+    
+    })
+
+    var cartDelUrl = "{% url 'cart_delete' %}";
+
+$(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+
+    var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: cartDelUrl,
+    data: {
+      product_id: $(this).data('index'),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+</script>
 {% endblock %}
