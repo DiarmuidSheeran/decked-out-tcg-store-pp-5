@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from .forms import ProductSearchForm
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category
+from .forms import EditProductForm
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
 
 # Create your views here.
 def product_list(request):
@@ -47,4 +49,23 @@ def product_search(request):
 
     return render(request, 'products/product_search.html', context)
 
+def edit_product(request,  id, slug):
+    product = get_object_or_404(Product,
+                                id=id,
+                                slug=slug,
+                                )
+
+    if request.method == 'POST':
+        form = EditProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_panel')
+    else:
+        form = EditProductForm(instance=product)
+
+    context = {
+        'product': product,
+        'form': form
+    }
+    return render(request, 'products/edit_product.html', context)
 

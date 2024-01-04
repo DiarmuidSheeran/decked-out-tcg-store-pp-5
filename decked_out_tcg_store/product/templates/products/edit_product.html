@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 style="text-align: center;">Edit: {{product.name}}</h1>
+
+<div class="container mt-5">
+    <form method="post" action="">
+        {% csrf_token %}
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <label for="{{ form.name.id_for_label }}">Product Name:</label>
+                <br>
+                {{ form.name }}
+                {{ form.name.errors }}
+            </div>
+
+            <div class="col-md-4">
+                <label for="{{ form.description.id_for_label }}">Description:</label>
+                <br>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div class="col-md-4">
+                <label for="{{ form.categories.id_for_label }}">Categories:</label>
+                <br>
+                <div style="height: 150px;">
+                    {{ form.categories }}
+                </div>
+                {{ form.categories.errors }}
+            </div>
+
+        </div>
+
+        <div class="row mb-4" style="margin-top: 100px;">
+
+            <div class="col-md-4">
+                <label for="{{ form.price.id_for_label }}">Price:</label>
+                <br>
+                {{ form.price }}
+                {{ form.price.errors }}
+            </div>
+
+            <div class="col-md-4">
+                <label for="{{ form.categories.id_for_label }}">Promotion Price:</label>
+                <br>
+                {{ form.discounted_price }}
+                {{ form.discounted_price.errors }}
+            </div>
+
+            <div class="col-md-4">
+                <label for="{{ form.quantity_available.id_for_label }}">Product Quantity:</label>
+                <br>
+                {{ form.quantity_available }}
+                {{ form.quantity_available.errors }}
+            </div>
+        </div>
+
+        <div class="row  mb-4" style="margin-top: 100px;">
+            <div class="col-md-4">
+                <label for="{{ form.categories.id_for_label }}">Featured Product:</label>
+                <br>
+                {{ form.is_featured }}
+                {{ form.is_featured.errors }}
+            </div>
+
+            <div class="col-md-4">
+                <label for="{{ form.categories.id_for_label }}">On Promortion:</label>
+                <br>
+                {{ form.on_special_offer }}
+                {{ form.on_special_offer.errors }}
+            </div>
+
+            <div class="col-md-4">
+                <label for="{{ form.image.id_for_label }}">Product Image:</label>
+                <br>
+                {{ form.image }}
+                {{ form.image.errors }}
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-4" style="margin-top: 100px;">
+            
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+           
+        </div>
+    </form>
+    <div class="row justify-content-center mb-4" style="margin-top: 5px;">
+        <a href="{% url 'admin_panel' %}" class="btn btn-warning">Back to Admin Panel</a>
+    </div>
+</div>
+
+{% endblock %}

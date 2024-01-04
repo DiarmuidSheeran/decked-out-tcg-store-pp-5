@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout
+from product.models import Product, Category
 
 # Create your views here.
 def account(request):
@@ -36,5 +37,9 @@ def logoutUser(request):
     return redirect('landing')
 
 def admin_panel(request):
-    
-    return render(request, 'user/admin_panel.html')
+    products = Product.objects.all()
+
+    context = {
+        'products': products,
+    }
+    return render(request, 'user/admin_panel.html', context)
