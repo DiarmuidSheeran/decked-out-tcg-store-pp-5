@@ -50,4 +50,34 @@
     </div>
     
 </div>
+
+<script>
+    $(document).on('click', '.add-cart-btn', function(e) {
+
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'cart_add' %}',
+            data: {
+                product_id: $('#add-cart-btn').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+
+            success: function(json) {
+                console.log(json)
+                
+
+
+                location.reload(true);
+            },
+
+            error: function(xhr, errmsg, err) {
+                console.log(errmsg);
+            }
+
+        });
+
+    })
+</script>
 {% endblock %}
