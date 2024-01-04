@@ -39,8 +39,12 @@
                             {% else %}
                                 <p class="card-text price-text mt-1" style="color: black; font-weight: bolder;"><br><br>Price: €{{ product.price }}</p>
                             {% endif %}
-                       
-                                <button type="button" class="btn btn-success add-cart-btn" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+                            <div class="input-group">
+                                <input type="number" class="form-control qty-cart" value="1" min="1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success add-cart-btn" type="button" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+                                </div>
+                            </div>
                         </div>
                        
                     </div>
@@ -52,14 +56,19 @@
 </div>
 
 <script>
+   var cartAddUrl = "{% url 'cart_add' %}";
+
     $(document).on('click', '.add-cart-btn', function(e) {
 
         e.preventDefault();
+        var product_id = $(this).val();
+        var product_qty = $(this).closest('.card').find('.qty-cart').val();
         $.ajax({
             type: 'POST',
-            url: '{% url 'cart_add' %}',
+            url: cartAddUrl,
             data: {
-                product_id: $('#add-cart-btn').val(),
+                product_id: product_id,
+                product_qty: product_qty,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
@@ -77,6 +86,7 @@
 
         });
 
-    })
+    });
+
 </script>
 {% endblock %}
