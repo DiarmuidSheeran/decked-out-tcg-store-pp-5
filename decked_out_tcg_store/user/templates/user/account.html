@@ -2,10 +2,70 @@
 {% load static %}
 
 {% block content %}
-<h1>Account</h1>
-<a href="{% url 'update_details' %}" class="btn btn-warning">Update Details</a>
-<a href="{% url 'view_details' %}" class="btn btn-warning">View Details</a>
-<a href="{% url 'order_history' %}" class="btn btn-warning">Order History</a>
-<a href="{% url 'wishlist' %}" class="btn btn-warning">Wishlist</a>
-<a href="{% url 'admin_panel' %}" class="btn btn-warning">Admin Panel</a>
+{% if user.is_staff %}
+    <h3 style="text-align: center;">Hello {{ user.userprofile.fname }}</h3>
+    <p style="text-align: center;">This is the bosses account page!</p>
+    <div class="row justify-content-center mb-4" style="margin-top: 20px;">
+        <a href="{% url 'admin_panel' %}" class="btn btn-warning">Admin Panel</a>
+    </div>
+{% else %}
+<h3 style="text-align: center;">Hello {{ user.userprofile.fname }}</h3>
+{% endif %}
+<div class="row justify-content-center mb-4" style="margin-top: 20px;">
+    <a href="{% url 'order_history' %}" class="btn btn-primary mb-4 mr-4" style="width: 150px;">Order History</a>
+    <a href="{% url 'wishlist' %}" class="btn btn-primary mb-4 " style="width: 150px;">Wishlist</a>
+</div>
+<div class="row justify-content-center mb-4" style="margin-top: 20px;">
+    <button class="btn btn-primary mb-4" type="button" data-toggle="collapse" data-target="#shipping" aria-expanded="false" aria-controls="shipping">
+        View Account Details
+    </button>
+</div>
+
+<div class="collapse mt-3" id="shipping">
+    <h3 style="text-align: center;">User Details</h3>
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <table class="table" style="color: white;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Username</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <td>
+                                    {{ user.userprofile.fname }} {{ user.userprofile.lname }}
+                                </td>
+                                <td>
+                                    {{ user.userprofile.shipping_address_line_1 }}
+                                    {{ user.userprofile.shipping_address_line_2 }}
+                                    {{ user.userprofile.shipping_address_town }}
+                                    {{ user.userprofile.shipping_address_county }}
+                                    {{ user.userprofile.shipping_address_eircode }}
+                                </td>
+                                <td>
+                                    {{ user.username }}
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+                <a href="{% url 'update_details' %}" class="btn btn-primary mb-4">Update Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-4" style="margin-top: 20px;">
+    <a href="{% url 'order_history' %}" class="btn btn-warning mr-2" style="width: 150px;">View Pending Order</a>
+    <a href="{% url 'product_list' %}" class="btn btn-warning" style="width: 150px;">Continue Shopping</a>
+</div>
+
+
+{% if user.is_staff %}
+    
+{% endif %}
 {% endblock %}

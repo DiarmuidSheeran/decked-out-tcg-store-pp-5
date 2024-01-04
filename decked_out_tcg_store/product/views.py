@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Product, Category
-from .forms import EditProductForm, CreateProductForm
+from .forms import EditProductForm, CreateProductForm, ProductSearchForm
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 
