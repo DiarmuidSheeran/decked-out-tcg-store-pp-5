@@ -3,5 +3,14 @@
 
 {% block content %}
 <h1>Cart Summary</h1>
+
+{% for product, quantity in cart_products.items %}
+{{ product.name }}{{ product.price|floatformat:2 }}
+<br>
+{{ totals }}
+{{ quantities }}
+<br>
+{% endfor %}
+
 <a href="{% url 'checkout' %}" class="btn btn-warning">Checkout</a>
 {% endblock %}

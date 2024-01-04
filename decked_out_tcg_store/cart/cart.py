@@ -22,11 +22,41 @@ class Cart():
 
         self.session.modified = True
 
-    
+    def cart_total(self):
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in=product_ids)
+        quantities = self.cart
+        total = 0
+		
+        for key, value in quantities.items():
+            key = int(key)
+            for product in products:
+                if product.id == key:
+                    if product.on_special_offer:
+                        total = total + (product.discounted_price * value)
+                    else:
+                        total = total + (product.price * value)
 
-    
+        return total
+
+    def get_prods(self):
+        product_ids = self.cart.keys()
+
+        quantities = self.cart
+        products_with_quantities = {}
+
+        for product_id in product_ids:
+            product_id = int(product_id)
+            product = Product.objects.get(id=product_id)
+            products_with_quantities[product] = quantities[str(product_id)]
+
+        return products_with_quantities
 
     def __len__(self):
         return sum(self.cart.values())
+
+    def get_quants(self):
+        quantities = self.cart
+        return quantities
 
     
