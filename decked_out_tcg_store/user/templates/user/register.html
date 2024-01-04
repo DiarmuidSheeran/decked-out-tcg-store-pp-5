@@ -2,5 +2,99 @@
 {% load static %}
 
 {% block content %}
-<h1>Register</h1>
+<div class="container forms-content">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="forms-content">
+                <div class="d-flex justify-content-center">
+				<h3 id="form-title">REGISTER ACCOUNT</h3>
+				</div>
+				<div class="d-flex justify-content-center form_container">
+
+					<form method="POST" action="{% url 'register' %}">
+						{% csrf_token %}
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="First Name" name="{{ form.fname.name }}">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="last Name" name="{{ form.lname.name }}">
+						</div>
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="Address line 1" name="{{ form.shipping_address_line_1.name }}">
+						</div>
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="Address line 2 (optional)" name="{{ form.shipping_address_line_2.name }}">
+						</div>
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="Town" name="{{ form.shipping_address_town.name }}">
+						</div>
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="County" name="{{ form.shipping_address_county.name }}">
+						</div>
+                        <div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="eircode" name="{{ form.shipping_address_eircode.name }}">
+						</div>
+						<div class="input-group mb-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="Username" name="{{ form.username.name }}">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-envelope-square" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="text" class="form-control" placeholder="Email" name="{{ form.email.name }}">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="password" class="form-control" placeholder="Password" name="{{ form.password1.name }}">
+						</div>
+						<div class="input-group mb-2">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-key" style="color: #ffffff;"></i></span>
+							</div>
+							<input type="password" class="form-control" placeholder="Confirm Password" name="{{ form.password2.name }}">
+						</div>
+
+						<div class="d-flex justify-content-center mt-3 login_container">
+							<input class="btn btn btn-primary btn-sm btn-block update-btn" type="submit" value="Register Account" style="color: white;">
+						</div>
+					</form>
+				</div>
+				<div class="d-flex justify-content-center links" style="color:wheat">
+				{{form.errors}}
+				</div>
+				<div class="mt-4">
+					<div class="d-flex justify-content-center links">
+						Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

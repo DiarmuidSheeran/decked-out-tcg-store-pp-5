@@ -7,11 +7,11 @@ class CreateUserForm(UserCreationForm):
    
     fname = forms.CharField(max_length=200, required=True)
     lname = forms.CharField(max_length=200, required=True)
-    shipping_address_line_1(max_length=200, required=True)
-    shipping_address_line_2(max_length=200, required=False)
-    shipping_address_town(max_length=200, required=True)
-    shipping_address_county(max_length=200, required=True)
-    shipping_address_eircode(max_length=200, required=True)
+    shipping_address_line_1 = forms.CharField(max_length=200, required=True)
+    shipping_address_line_2 = forms.CharField(max_length=200, required=False)
+    shipping_address_town = forms.CharField(max_length=200, required=True)
+    shipping_address_county = forms.CharField(max_length=200, required=True)
+    shipping_address_eircode =forms.CharField(max_length=200, required=True)
 
     class Meta:
         model = User
