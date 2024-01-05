@@ -41,7 +41,7 @@
         </div>
 
         
-            <div class="col-md-4" > 
+            <div class="col-md-4" id="shipping-section"> 
                 <h1>Payment</h1>
                 <form action="{% url 'checkout' %}" method="post">
                     {% csrf_token %}
@@ -77,14 +77,20 @@
                         <label for="shipping_address_eircode" class="form-label">Eircode</label>
                         <input type="text" class="form-control" id="shipping_address_eircode" name="shipping_address_eircode" value="{{ shipping_address.eircode }}" placeholder="Eircode">
                     </div>
-                    <div class="mb-3">
-                        <label for="credit_card" class="form-label">Credit Card Number</label>
-                        <input type="text" class="form-control" id="credit_card" name="credit_card" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Order</button>
+                    <button type="submit" class="btn btn-primary">Submit Shipping Details</button>
+                    
                 </form>
-                
+                <button id="switch-to-payment">Switch to Payment</button>
             </div>
+            <div class="col-md-4" id="payment-section">
+                <h1>Payment</h1>
+                <form id="checkout-form" action="{% url 'create_checkout_session' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="Proceed to Checkout">
+                  </form>
+                <button id="switch-to-shipping" style="display: none;">Switch to Shipping</button>
+            </div>
+            
             <div class="col-md-4" style="margin-top: 100px;"> 
                 <img src="{% static 'images/ra.png' %}" alt="Slifer" class="img-fluid">
             </div>
@@ -92,36 +98,33 @@
     </div>
 </div>
 <script>
-    var stripe = Stripe('{{ stripe_public_key }}');
+    document.addEventListener('DOMContentLoaded', function () {
+        var shippingSection = document.getElementById('shipping-section');
+        var paymentSection = document.getElementById('payment-section');
+        var switchToPaymentButton = document.getElementById('switch-to-payment');
+
     
-    // Handle form submission
-    var checkoutForm = document.getElementById('checkout-form');
-    checkoutForm.addEventListener('submit', function(event) {
-      event.preventDefault();
+        switchToPaymentButton.addEventListener('click', function () {
+            var stripe = Stripe('pk_test_51OS5DgEPBBYTB9R1ljMgfHt54Hj8cQkwCkDDhKXws2iMY2OeE0uDI7BB7OUFM1EpCDHfLqOa2JfDW5dTUWA5so4N00Z9twi4oU');
+            stripe.redirectToCheckout({
+                sessionId: '{{ checkout_session.id }}'
+            })
+            .then(function (result) {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
 
-      stripe.createToken('card').then(function(result) {
-        if (result.error) {
-          // Inform the user if there was an error
-          var errorElement = document.getElementById('card-errors');
-          errorElement.textContent = result.error.message;
-        } else {
-          // Send the token to your server
-          stripeTokenHandler(result.token);
-        }
-      });
+            shippingSection.style.display = 'none';
+            paymentSection.style.display = 'none';
+        });
+
+        var switchToShippingButton = document.getElementById('switch-to-shipping');
+        switchToShippingButton.addEventListener('click', function () {
+            shippingSection.style.display = 'block';
+            paymentSection.style.display = 'none';
+        });
     });
+</script>
 
-    // Submit the form with the token ID
-    function stripeTokenHandler(token) {
-      var form = document.getElementById('checkout-form');
-      var hiddenInput = document.createElement('input');
-      hiddenInput.setAttribute('type', 'hidden');
-      hiddenInput.setAttribute('name', 'stripeToken');
-      hiddenInput.setAttribute('value', token.id);
-      form.appendChild(hiddenInput);
-
-      // Submit the form
-      form.submit();
-    }
-  </script>
 {% endblock %}
