@@ -9,15 +9,16 @@
                 <div class="card-header">
                     <h5>Order #{{ latest_order.pk }}</h5>
                     <p>Ordered on: {{ latest_order.created_at }}</p>
+                    <p>Status: {{ latest_order.shipping_status }}</p>
                 </div>
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Name:</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Customer Name:</h6>
                     <p>{{ latest_order.full_name }}</p>
                     <h6 class="card-subtitle mb-2 text-muted">Shipping Address:</h6>
                     <p>{{ latest_order.shipping_address }}</p>
                     <h6 class="card-subtitle mb-2 text-muted">Order Items:</h6>
                     {% for item in latest_order.items.all %}
-                        <p>{{ item.quantity }} x {{ item.product.name }} - €{{ item.price_at_purchase }}</p>
+                        <p>{{ item.quantity }} x {{ item.product.name }} - @ €{{ item.price_at_purchase }} per unit</p>
                     {% endfor %}
                     <h5>Total Price: €{{ latest_order.total_price }}</h5>
                 </div>

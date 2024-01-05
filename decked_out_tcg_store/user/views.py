@@ -4,6 +4,7 @@ from product.models import Product, Category
 from .forms import CreateUserForm, UpdateForm
 from .models import *
 from django.contrib.auth.models import User
+from order.models import Order, OrderItem
 
 
 # Create your views here.
@@ -25,8 +26,11 @@ def user_login(request):
     return render(request, 'user/login.html')
 
 def order_history(request):
-    
-    return render(request, 'user/order_history.html')
+
+    user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
+
+    context = {'user_orders': user_orders}
+    return render(request, 'user/order_history.html', context)
 
 def register(request):
     form = CreateUserForm()
