@@ -130,3 +130,14 @@ body{
 .rotate-minus-20 {
     transform: rotate(20deg);
 }
+
+/*----- Checkout styles -----------*/
+
+.cart-summary {
+    background-color: white;
+    border-color: red;
+    border-radius: 20px;
+    border-width: 2px;
+    border-right: 5px;
+    border-left: 5px;
+}
