@@ -35,7 +35,7 @@
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input type="number" class="form-control qty-cart" id="quantity{{ product.id }}" value="{{ quantity }}" min="1">
+                                            <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="{{ quantity }}" min="1" max="{{product.quantity_available}}" readonly>
                                             <div class="input-group-append">
                                                 <button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
                                                 <button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button>
@@ -99,11 +99,15 @@
 </div>
 
 <script>
-    $(document).on('click', '.increase-quantity', function (e) {
+  $(document).on('click', '.increase-quantity', function (e) {
     e.preventDefault();
     var productid = $(this).data('index');
     var quantityInput = $('#quantity' + productid);
-    quantityInput.val(parseInt(quantityInput.val()) + 1);
+    var maxqty = $('#quantity' + productid).attr('max');
+
+    if (parseInt(quantityInput.val()) < parseInt(maxqty)) {
+        quantityInput.val(parseInt(quantityInput.val()) + 1);
+    }
 });
 
 $(document).on('click', '.decrease-quantity', function (e) {

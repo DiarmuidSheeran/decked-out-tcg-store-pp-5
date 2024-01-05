@@ -41,8 +41,10 @@
                                     <p class="card-text price-text mt-1" style="color: black; font-weight: bolder;"><br><br>Price: €{{ product.price }}</p>
                                 {% endif %}
                                 <div class="input-group">
-                                    <input type="number" class="form-control qty-cart" value="1" min="1">
+                                    <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="1" min="1" max="{{product.quantity_available}}" readonly>
                                     <div class="input-group-append">
+                                        <button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
+                                        <button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button>
                                         <button class="btn btn-success add-cart-btn" type="button" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
                                     </div>
                                 </div>
@@ -59,6 +61,26 @@
 </div>
 
 <script>
+     $(document).on('click', '.increase-quantity', function (e) {
+    e.preventDefault();
+    var productid = $(this).data('index');
+    var quantityInput = $('#quantity' + productid);
+    var maxqty = $('#quantity' + productid).attr('max');
+
+    if (parseInt(quantityInput.val()) < parseInt(maxqty)) {
+        quantityInput.val(parseInt(quantityInput.val()) + 1);
+    }
+});
+
+$(document).on('click', '.decrease-quantity', function (e) {
+    e.preventDefault();
+    var productid = $(this).data('index');
+    var quantityInput = $('#quantity' + productid);
+    var currentQuantity = parseInt(quantityInput.val());
+    if (currentQuantity > 1) {
+        quantityInput.val(currentQuantity - 1);
+    }
+});
    var cartAddUrl = "{% url 'cart_add' %}";
 
     $(document).on('click', '.add-cart-btn', function(e) {

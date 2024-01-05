@@ -25,6 +25,7 @@ def cart_add(request):
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
         product = get_object_or_404(Product, id=product_id)
+
         cart.add(product=product, quantity=product_qty)
 
         cart_quantity = cart.__len__()
@@ -47,6 +48,7 @@ def cart_update(request):
 
         product_id = int(request.POST.get('product_id'))
         product_qty = int(request.POST.get('product_qty'))
+
 
         cart.update(product=product_id, quantity=product_qty)
 

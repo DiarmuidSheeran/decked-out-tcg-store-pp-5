@@ -16,9 +16,15 @@ class Cart():
         product_qty = int(quantity)
 
         if product_id in self.cart:
-            self.cart[product_id] += product_qty
+            if self.cart[product_id] + product_qty > product.quantity_available:
+                return False
+            else:
+                self.cart[product_id] += product_qty
         else:
-            self.cart[product_id] = product_qty
+            if product_qty > product.quantity_available:
+                return False
+            else:
+                self.cart[product_id] = product_qty
 
         self.session.modified = True
 
