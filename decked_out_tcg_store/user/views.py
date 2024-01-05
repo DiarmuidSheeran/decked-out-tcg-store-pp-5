@@ -29,7 +29,15 @@ def order_history(request):
 
     user_orders = Order.objects.filter(user=request.user).order_by('-created_at')
 
-    context = {'user_orders': user_orders}
+    ordered_orders = user_orders.filter(shipping_status='ordered')
+    in_process_orders = user_orders.filter(shipping_status='in_process')
+    shipped_orders = user_orders.filter(shipping_status='shipped')
+
+    context = {
+        'ordered_orders': ordered_orders,
+        'in_process_orders': in_process_orders,
+        'shipped_orders': shipped_orders,
+    }
     return render(request, 'user/order_history.html', context)
 
 def register(request):

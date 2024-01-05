@@ -4,31 +4,90 @@
 {% block content %}
 <h3 class="text-center mb-4 mt-4">Order History</h3>
     <div class="container" style="color: black;">
-        {% if user_orders %}
-        {% for orders in user_orders %}
-            <div class="card mb-3">
-                <div class="card-header">
-                    <h5>Order #{{ orders.pk }}</h5>
-                    <p>Ordered on: {{ orders.created_at }}</p>
-                    <p>Status: {{ orders.shipping_status }}</p>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Customer Name:</h6>
-                    <p>{{ orders.full_name }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">Shipping Address:</h6>
-                    <p>{{ orders.shipping_address }}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">Order Items:</h6>
-                    {% for item in orders.items.all %}
-                        <p>{{ item.quantity }} x {{ item.product.name }} - @ €{{ item.price_at_purchase }} per unit</p>
+        <div class="row">
+            <div class="col-md-4">
+                <h4 style="color: white;">Ordered</h4>
+                {% if ordered_orders %}
+                    {% for orders in ordered_orders %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5>Order #{{ orders.pk }}</h5>
+                            <p>Ordered on: {{ orders.created_at }}</p>
+                            <p>Status: {{ orders.shipping_status }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Customer Name:</h6>
+                            <p>{{ orders.full_name }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Shipping Address:</h6>
+                            <p>{{ orders.shipping_address }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Order Items:</h6>
+                            {% for item in orders.items.all %}
+                                <p>{{ item.quantity }} x {{ item.product.name }} - @ €{{ item.price_at_purchase }} per unit</p>
+                            {% endfor %}
+                            <h5>Total Price: €{{ orders.total_price }}</h5>
+                        </div>
+                    </div>
                     {% endfor %}
-                    <h5>Total Price: €{{ orders.total_price }}</h5>
-                </div>
+                {% else %}
+                    <p>No ordered orders.</p>
+                {% endif %}
             </div>
-            {% endfor %}
-        {% else %}
-            <h6 class="text-center" style="color:white">No recent orders found.</h6>
-        {% endif %}
+            <div class="col-md-4">
+                <h4 style="color: white;">In Process</h4>
+                {% if in_process_orders %}
+                    {% for orders in in_process_orders %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5>Order #{{ orders.pk }}</h5>
+                            <p>Ordered on: {{ orders.created_at }}</p>
+                            <p>Status: {{ orders.shipping_status }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Customer Name:</h6>
+                            <p>{{ orders.full_name }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Shipping Address:</h6>
+                            <p>{{ orders.shipping_address }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Order Items:</h6>
+                            {% for item in orders.items.all %}
+                                <p>{{ item.quantity }} x {{ item.product.name }} - @ €{{ item.price_at_purchase }} per unit</p>
+                            {% endfor %}
+                            <h5>Total Price: €{{ orders.total_price }}</h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No orders in process.</p>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <h4 style="color: white;">Shipped</h4>
+                {% if shipped_orders %}
+                    {% for orders in shipped_orders %}
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h5>Order #{{ orders.pk }}</h5>
+                            <p>Ordered on: {{ orders.created_at }}</p>
+                            <p>Status: {{ orders.shipping_status }}</p>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Customer Name:</h6>
+                            <p>{{ orders.full_name }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Shipping Address:</h6>
+                            <p>{{ orders.shipping_address }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Order Items:</h6>
+                            {% for item in orders.items.all %}
+                                <p>{{ item.quantity }} x {{ item.product.name }} - @ €{{ item.price_at_purchase }} per unit</p>
+                            {% endfor %}
+                            <h5>Total Price: €{{ orders.total_price }}</h5>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No shipped orders.</p>
+                {% endif %}
+            </div> 
         <a href="{% url 'account' %}" class="btn btn-primary mt-3">Back to Account</a>
     </div>
+</div>
 
 {% endblock %}
