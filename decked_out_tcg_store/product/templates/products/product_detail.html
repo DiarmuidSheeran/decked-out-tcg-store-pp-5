@@ -46,23 +46,21 @@
             </div>
 
             <br>
-
+            {% if product.quantity_available > 0 %}
             
-            <div class="row justify-content-left">
-                <div class="col-md-1 mt-2" style="color: white;">Quantity:</div>
-                <div class="col-md-1">
-                    <select class="form-select form-select-sm qty-cart mt-2" id="custom-width">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <button type="button" class="btn btn-success add-cart-btn mt-1" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+            <div class="card" style="width: 300px;">
+                <div class="input-group" style="width: 300px;">
+                    <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="1" min="1" max="{{product.quantity_available}}" readonly>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
+                        <button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button>
+                        <button class="btn btn-success add-cart-btn" type="button" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+                    </div>
                 </div>
             </div>
+            {% else %}
+                <p class="text-danger">Out of stock</p>
+            {% endif %}
             <br>
             
             <br>
@@ -72,6 +70,60 @@
     </div>
 </div>
 
+<script>
+    $(document).on('click', '.increase-quantity', function (e) {
+   e.preventDefault();
+   var productid = $(this).data('index');
+   var quantityInput = $('#quantity' + productid);
+   var maxqty = $('#quantity' + productid).attr('max');
+
+   if (parseInt(quantityInput.val()) < parseInt(maxqty)) {
+       quantityInput.val(parseInt(quantityInput.val()) + 1);
+   }
+});
+
+$(document).on('click', '.decrease-quantity', function (e) {
+   e.preventDefault();
+   var productid = $(this).data('index');
+   var quantityInput = $('#quantity' + productid);
+   var currentQuantity = parseInt(quantityInput.val());
+   if (currentQuantity > 1) {
+       quantityInput.val(currentQuantity - 1);
+   }
+});
+  var cartAddUrl = "{% url 'cart_add' %}";
+
+   $(document).on('click', '.add-cart-btn', function(e) {
+
+       e.preventDefault();
+       var product_id = $(this).val();
+       var product_qty = $(this).closest('.card').find('.qty-cart').val();
+       $.ajax({
+           type: 'POST',
+           url: cartAddUrl,
+           data: {
+               product_id: product_id,
+               product_qty: product_qty,
+               csrfmiddlewaretoken: '{{ csrf_token }}',
+               action: 'post'
+           },
+
+           success: function(json) {
+               console.log(json)
+               document.getElementById("cart_quantity").textContent = json.qty
+
+               location.reload(true);
+           },
+
+           error: function(xhr, errmsg, err) {
+               console.log(errmsg);
+           }
+
+       });
+
+   });
+
+</script>
 
 
 {% endblock %}
