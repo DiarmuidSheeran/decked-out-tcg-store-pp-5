@@ -4,6 +4,7 @@ from user.models import UserProfile
 from django.contrib.auth.models import User
 from order.models import Order, OrderItem
 from product.models import Product
+from .forms import CheckoutForm
 
 def checkout(request):
     cart = Cart(request)
@@ -40,6 +41,24 @@ def checkout(request):
             'lname': user_profile.lname,
             'email': user.email,
         }
+
+    else:
+        user = None
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            shipping_address = {
+                'line_1': form.cleaned_data.get('shipping_address_line_1'),
+                'line_2': form.cleaned_data.get('shipping_address_line_2'),
+                'town': form.cleaned_data.get('shipping_address_town'),
+                'county': form.cleaned_data.get('shipping_address_county'),
+                'eircode': form.cleaned_data.get('shipping_address_eircode'),
+            }
+            user_data = {
+                'fname': form.cleaned_data.get('fname'),
+                'lname': form.cleaned_data.get('lname'),
+                'email': form.cleaned_data.get('email'),
+            }
+            
 
     if request.method == 'POST':
         order = Order(
