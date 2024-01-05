@@ -29,3 +29,9 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name} in Order #{self.order.pk}"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.product.quantity_available -= self.quantity
+        self.product.save()
+
