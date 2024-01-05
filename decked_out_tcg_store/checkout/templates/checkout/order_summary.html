@@ -2,6 +2,32 @@
 {% load static %}
 
 {% block content %}
-<h1>Order Summary</h1>
-<a href="{% url 'landing' %}" class="btn btn-primary mt-3">Back to Home</a>
+<h3 class="text-center mb-4 mt-4">Order Summary</h3>
+    <div class="container" style="color: black;">
+        {% if latest_order %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5>Order #{{ latest_order.pk }}</h5>
+                    <p>Ordered on: {{ latest_order.created_at }}</p>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Name:</h6>
+                    <p>{{ latest_order.full_name }}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Shipping Address:</h6>
+                    <p>{{ latest_order.shipping_address }}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Order Items:</h6>
+                    {% for item in latest_order.items.all %}
+                        <p>{{ item.quantity }} x {{ item.product.name }} - €{{ item.price_at_purchase }}</p>
+                    {% endfor %}
+                    <h5>Total Price: €{{ latest_order.total_price }}</h5>
+                </div>
+                <a href="{% url 'landing' %}" class="btn btn-primary mt-3">Back to Home</a>
+            </div>
+        {% else %}
+            <p class="text-center">No recent orders found.</p>
+        {% endif %}
+      
+    </div>
+
+
 {% endblock %}

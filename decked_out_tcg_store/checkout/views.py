@@ -94,5 +94,14 @@ def checkout(request):
     return render(request, "checkout/checkout.html", context)
 
 def order_summary(request):
-    return render(request, "checkout/order_summary.html")
+    latest_order = None
+    if request.user.is_authenticated:
+        latest_order = Order.objects.filter(user=request.user).order_by('-created_at').first()
+
+    # If not authenticated or no orders for the authenticated user, get the most recent order for guests
+    if not latest_order:
+        latest_order = Order.objects.filter(user=None).order_by('-created_at').first()
+
+    context = {'latest_order': latest_order}
+    return render(request, "checkout/order_summary.html", context)
 
