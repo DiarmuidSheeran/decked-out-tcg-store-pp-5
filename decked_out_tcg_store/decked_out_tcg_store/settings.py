@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from .stripe import *
 import os
 if os.path.isfile('env.py'):
     import env
