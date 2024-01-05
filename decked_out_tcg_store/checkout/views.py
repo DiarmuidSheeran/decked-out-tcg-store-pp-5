@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from cart.cart import Cart
 from user.models import UserProfile
 from django.contrib.auth.models import User
+from order.models import Order, OrderItem
+from product.models import Product
 
 def checkout(request):
     cart = Cart(request)
@@ -40,6 +42,26 @@ def checkout(request):
         }
 
     if request.method == 'POST':
+        order = Order(
+            user=request.user if request.user.is_authenticated else None,
+            full_name =f"{user_data['fname']} {user_data['lname']}",
+            email_address =f"{user_data['email']}",
+            shipping_address=f"{shipping_address['line_1']} {shipping_address['line_2']} {shipping_address['town']} {shipping_address['county']} {shipping_address['eircode']}",
+            total_price=cart.cart_total(),
+        )
+        order.save()
+
+        for product_id, quantity in cart.cart.items():
+            product = Product.objects.get(pk=product_id)
+            price_at_purchase = product.discounted_price if product.on_special_offer else product.price
+            order_item = OrderItem(
+                order=order,
+                product=product,
+                quantity=quantity,
+                price_at_purchase=price_at_purchase,
+            )
+            order_item.save()
+        
         cart.clear()
         return redirect('order_summary')
 
