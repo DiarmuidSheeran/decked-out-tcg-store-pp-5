@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from order.models import Order, OrderItem
 from product.models import Product
 from .forms import CheckoutForm
+from django.conf import settings
 
 def checkout(request):
     cart = Cart(request)
@@ -90,6 +91,7 @@ def checkout(request):
         "totals":totals,
         'shipping_address': shipping_address,
         'user_data': user_data,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY
     }
     return render(request, "checkout/checkout.html", context)
 
