@@ -153,3 +153,9 @@ body{
     border-right: 5px;
     border-left: 5px;
 }
+
+/*---- Cart Styles ------*/
+
+.small-input {
+    width: 70px;
+}
