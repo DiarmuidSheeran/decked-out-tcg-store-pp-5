@@ -82,49 +82,19 @@
                 </form>
                 <button id="switch-to-payment">Switch to Payment</button>
             </div>
-            <div class="col-md-4" id="payment-section">
+            <div class="col-md-4">
                 <h1>Payment</h1>
-                <form id="checkout-form" action="{% url 'create_checkout_session' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="submit" class="btn btn-primary" value="Proceed to Checkout">
-                  </form>
-                <button id="switch-to-shipping" style="display: none;">Switch to Shipping</button>
+                <button id="switch-to-shipping">Payment</button>
+                <img src="{% static 'images/ra.png' %}" alt="Slifer" class="img-fluid">
+                
             </div>
             
             <div class="col-md-4" style="margin-top: 100px;"> 
-                <img src="{% static 'images/ra.png' %}" alt="Slifer" class="img-fluid">
+               
             </div>
     
     </div>
 </div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var shippingSection = document.getElementById('shipping-section');
-        var paymentSection = document.getElementById('payment-section');
-        var switchToPaymentButton = document.getElementById('switch-to-payment');
 
-    
-        switchToPaymentButton.addEventListener('click', function () {
-            var stripe = Stripe('pk_test_51OS5DgEPBBYTB9R1ljMgfHt54Hj8cQkwCkDDhKXws2iMY2OeE0uDI7BB7OUFM1EpCDHfLqOa2JfDW5dTUWA5so4N00Z9twi4oU');
-            stripe.redirectToCheckout({
-                sessionId: '{{ checkout_session.id }}'
-            })
-            .then(function (result) {
-                if (result.error) {
-                    alert(result.error.message);
-                }
-            });
-
-            shippingSection.style.display = 'none';
-            paymentSection.style.display = 'none';
-        });
-
-        var switchToShippingButton = document.getElementById('switch-to-shipping');
-        switchToShippingButton.addEventListener('click', function () {
-            shippingSection.style.display = 'block';
-            paymentSection.style.display = 'none';
-        });
-    });
-</script>
 
 {% endblock %}
