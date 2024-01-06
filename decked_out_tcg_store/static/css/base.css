@@ -86,15 +86,27 @@ body{
     height: 150px;
 }
 
-@media (min-width: 1312px) and (max-width: 1434px) {
-    .custom-card {
-        font-size: 90%;
+
+@media (min-width: 1580px) and (max-width: 1677px) {
+    .add-cart-btn {
+        margin-left: 50px;
+    }
+    .custom-card-footer {
+        font-family: 'Roboto Mono', monospace;
+        height: 200px;
     }
   }
 
-@media (min-width: 1200px) and (max-width: 1311px) {
-    .custom-card {
-        font-size: 60%;
+
+@media (min-width: 1200px) and (max-width: 1580px) {
+    .add-cart-btn {
+        width: 100%;
+        margin-top: 5px;
+
+    }
+    .custom-card-footer {
+        font-family: 'Roboto Mono', monospace;
+        height: 200px;
     }
   }
 

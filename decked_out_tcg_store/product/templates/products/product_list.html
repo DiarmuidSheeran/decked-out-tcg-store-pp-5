@@ -42,10 +42,11 @@
                                 {% endif %}
                                 <div class="input-group">
                                     <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="1" min="1" max="{{product.quantity_available}}" readonly>
+                                    <span><button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button></span>
+                                        <span><button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button></span>
                                     <div class="input-group-append">
-                                        <button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
-                                        <button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button>
-                                        <button class="btn btn-success add-cart-btn" type="button" value="{{ product.id }}" style="width: 100%;">Add to Cart</button>
+                                        
+                                        <button class="btn btn-success add-cart-btn" type="button" value="{{ product.id }}">Add to Cart</button>
                                     </div>
                                 </div>
                             {% else %}
