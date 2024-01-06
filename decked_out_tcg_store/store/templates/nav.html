@@ -1,65 +1,65 @@
 {% load static %}
-
-<div class="navbar-row">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-           
-            <a class="navbar-brand" href="{% url 'landing' %}">DECKED OUT!</a>
-
-            <a class="nav-link" href="{% url 'cart_summary' %}">
-                <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart">
-                <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-     
-            <form class="mx-auto form-inline my-2 my-lg-0" action="{% url 'product_search' %}" method="get">
-                <div class="input-group" style="width: max-content;">
-                    <input class="form-control" id="search-bar" type="search" placeholder="What are you looking for?" aria-label="Search" name="search_query">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-warning" type="submit" style="background-color: #fff">
-                            <i class="fa-solid fa-magnifying-glass" style="color: #000;"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-                
-                   
-              
-
-            
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle bg-dark mr-3" type="button" id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Filter by Categories
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="categoryDropdown" style="width: 100%;">
-                                {% for category in categories %}
-                                <a class="dropdown-item" href="{% url 'product_list' %}?category={{ category.id }}">{{ category.name }}</a>
-                                {% endfor %}
+<div class="container-fluid" >
+    <div class="row justify-content-center navbar-dark" style="background-color: rgb(114, 0, 0); border-style: solid; border-color: #fff; border-width: 5px; border-bottom: none; border-radius: 20px;">
+        <div class="navbar-row">
+            <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: rgb(114, 0, 0);">
+                <a class="navbar-brand" href="{% url 'landing' %}">DECKED OUT!</a>
+                <a class="nav-link" href="{% url 'cart_summary' %}">
+                    <img id="cart-icon" src="{% static 'images/cart.png' %}" alt="Cart">
+                    <span class="badge bg-light text-black ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li>
+                            <div class="dropdown">
+                                <button class="btn btn-dark dropdown-toggle mr-3" type="button" id="categoryDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Search by Categories
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="categoryDropdown" style="width: 100%;">
+                                    {% for category in categories %}
+                                    <a class="dropdown-item" href="{% url 'product_list' %}?category={{ category.id }}">{{ category.name }}</a>
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                    </li>
-
-                    <li class="nav-item">
-                        {% if user.is_anonymous %}
-                            <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
-                            <a href="{% url 'register' %}" class="btn btn-danger ml-2">Sign Up</a>
-                        {% else %}
-                            <a href="{% url 'account' %}" class="btn btn-warning">My Account</a>
-                            <a href="{% url 'logout' %}" class="btn btn-danger ml-2">Logout</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-        
-    </nav>
+                        </li>
+                        <li>
+                            <a href="{% url 'product_list' %}" class="btn btn-info mr-3">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            {% if user.is_anonymous %}
+                                <a href="{% url 'login' %}" class="btn btn-dark">Login</a>
+                                <a href="{% url 'register' %}" class="btn btn-success ml-2">Sign Up</a>
+                            {% else %}
+                                <a href="{% url 'account' %}" class="btn btn-success">My Account</a>
+                                <a href="{% url 'logout' %}" class="btn btn-danger ml-2">Logout</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
 </div>
+
+<div class="navbar-row navbar-dark" style="background-color: rgb(114, 0, 0);border-style: solid; border-color: #fff; border-width: 5px; border-top: none; border-radius: 20px;">
+    <div class="row justify-content-center">
+        <form class="form-inline my-2 my-lg-0" action="{% url 'product_search' %}" method="get">
+            <div class="input-group mb-4" style="width: max-content;">
+                <input class="form-control" id="search-bar" type="search" placeholder="What products are you looking for?" aria-label="Search" name="search_query">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-light" type="submit" style="background-color: rgb(114, 0, 0);">
+                        <i class="fa-solid fa-magnifying-glass" style="color: #fff; background-color: rgb(114, 0, 0);"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 
 
 
