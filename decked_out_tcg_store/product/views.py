@@ -10,6 +10,10 @@ def product_list(request):
     selected_category_ids = request.GET.getlist('categories[]')
     selected_categories = Category.objects.filter(id__in=selected_category_ids)
     products = Product.objects.all()
+    selected_category_id = request.GET.get('category')
+
+    if selected_category_id:
+        products = products.filter(categories__id=selected_category_id)
 
     for category in selected_categories:
         products = products.filter(categories=category)
@@ -30,6 +34,7 @@ def product_list(request):
         'products': products.distinct(),
         'categories': all_categories,
         'selected_category_ids': selected_category_ids,
+        'selected_category_id': selected_category_id,
     }
     return render(request, 'products/product_list.html', context)
 

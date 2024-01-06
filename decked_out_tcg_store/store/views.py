@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import SlideshowImage
 from user.models import UserProfile
+from product.models import Product, Category
 # Create your views here.
 def landing(request):
     slideshow_images = SlideshowImage.objects.all()
