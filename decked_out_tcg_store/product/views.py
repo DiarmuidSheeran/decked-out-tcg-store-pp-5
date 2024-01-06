@@ -8,10 +8,10 @@ def product_list(request):
     products = Product.objects.all()
     all_categories = Category.objects.all()
     
-    selected_category_id = request.GET.get('category')
-    if selected_category_id:
-        selected_category = Category.objects.get(id=selected_category_id)
-        products = Product.objects.filter(categories__in=[selected_category])
+    selected_category_ids = request.GET.getlist('categories[]')
+    if selected_category_ids:
+        selected_categories = Category.objects.filter(id__in=selected_category_ids)
+        products = products.filter(categories__in=selected_categories)
 
     context = {
         'products': products,

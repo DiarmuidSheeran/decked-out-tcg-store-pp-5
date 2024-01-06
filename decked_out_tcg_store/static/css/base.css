@@ -77,38 +77,15 @@ body{
 
 /*------ Product Page Styles --------*/
 
+
 .custom-card-body {
-    height: 130px;
+    height: 350px;
 }
 
 .custom-card-footer {
     font-family: 'Roboto Mono', monospace;
-    height: 150px;
+    height: 200px;
 }
-
-
-@media (min-width: 1580px) and (max-width: 1677px) {
-    .add-cart-btn {
-        margin-left: 50px;
-    }
-    .custom-card-footer {
-        font-family: 'Roboto Mono', monospace;
-        height: 200px;
-    }
-  }
-
-
-@media (min-width: 1200px) and (max-width: 1580px) {
-    .add-cart-btn {
-        width: 100%;
-        margin-top: 5px;
-
-    }
-    .custom-card-footer {
-        font-family: 'Roboto Mono', monospace;
-        height: 200px;
-    }
-  }
 
 #custom-width {
     width: 70px; 

@@ -6,14 +6,16 @@
 
     <div class="row">
         <div class="col-md-3">
-            <form method="get" action="{% url 'product_list' %}" class="mb-4">
-                <label for="category"><h3 class="text-center mb-4">Filter by Categories</h3></label>
-                <select name="category" id="category" class="form-control">
-                    <option value="">Choose Filter</option>
-                    {% for category in categories %}
-                        <option value="{{ category.id }}">{{ category.name }}</option>
-                    {% endfor %}
-                </select>
+            <form method="get" action="{% url 'product_list' %}" class="mb-4 ml-4">
+                <h3 class="mb-4">Filter by Categories</h3>
+                {% for category in categories %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="categories[]" id="category{{ category.id }}" value="{{ category.id }}">
+                        <label class="form-check-label" for="category{{ category.id }}">
+                            {{ category.name }}
+                        </label>
+                    </div>
+                {% endfor %}
                 <button type="submit" class="btn btn-primary mt-3">Apply Filter</button>
             </form>
         </div>
@@ -25,10 +27,12 @@
             {% for product in products %}
                 <div class="col-md-6 mb-4 pb-4 col-lg-6 mb-lg-4 pb-lg-4 col-xl-3 mb-xl-4 pb-xl-4">
                     <div class="card custom-card">
+                        <div class="card-body custom-card-body" style="color: black;">
                         <a href="{% url 'product_detail' id=product.id slug=product.slug %}" style="text-decoration: none; color:black;">
-                            <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}">
-                            <div class="card-body custom-card-body" style="color: black;">
+                            <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}" style="width: 150px; height: 150px;">
+                            
                                 <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
+                                <p style="color: black;">Quantity Available {{product.quantity_available}}</p>
                         </a>
                         </div>
                         <div class="card-footer custom-card-footer">
@@ -43,12 +47,9 @@
                                 <div class="input-group">
                                     <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="1" min="1" max="{{product.quantity_available}}" readonly>
                                     <span><button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button></span>
-                                        <span><button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button></span>
-                                    <div class="input-group-append">
-                                        
-                                        <button class="btn btn-success add-cart-btn" type="button" value="{{ product.id }}">Add to Cart</button>
-                                    </div>
+                                    <span><button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button></span>
                                 </div>
+                                <button class="btn btn-success add-cart-btn mt-2" type="button" value="{{ product.id }}">Add to Cart</button>
                             {% else %}
                                 <p class="text-danger">Out of stock</p>
                                 {% endif %}
