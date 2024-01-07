@@ -12,37 +12,37 @@
         <div class="col-md-9 mx-auto">
             <div class="row">
                 {% for product in results %}
-                    <div class="col-md-6 mb-4 pb-4 col-lg-6 mb-lg-4 pb-lg-4 col-xl-3 mb-xl-4 pb-xl-4">
-                        <div class="card custom-card">
-                            <div class="card-body custom-card-body" style="color: black;">
-                            <a href="{% url 'product_detail' id=product.id slug=product.slug %}" style="text-decoration: none; color:black;">
-                                <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}" style="width: 150px; height: 150px;">
-                                
-                                    <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
-                                    <p style="color: black;">Quantity Available {{product.quantity_available}}</p>
-                            </a>
-                            </div>
-                            <div class="card-footer custom-card-footer">
-                                {% if product.quantity_available > 0 %}
-                                    {% if product.on_special_offer %}
-                                        {% if product.discounted_price %}
-                                            <p class="card-text price-text" style="color: red; font-weight: bolder;"><small class="btn btn-sm btn-danger special-offer" style="font-size: 10px;">Special Offer</small><br><del style="color: black; font-size: smaller;">Was: €{{ product.price }}</del><br> Now: €{{ product.discounted_price }}</p>
-                                        {% endif %}
-                                    {% else %}
-                                        <p class="card-text price-text mt-1" style="color: black; font-weight: bolder;"><br><br>Price: €{{ product.price }}</p>
+                <div class="col-md-6 mb-4 pb-4 col-lg-6 mb-lg-4 pb-lg-4 col-xl-3 mb-xl-4 pb-xl-4">
+                    <div class="card custom-card" style="border-style: solid; border-color: rgb(83, 10, 10); border-width: 5px; border-radius: 40px;">
+                        <div class="card-body custom-card-body" style="color: black;">
+                        <a href="{% url 'product_detail' id=product.id slug=product.slug %}" style="text-decoration: none; color:black;">
+                            <img src="{{ product.image.url }}" class="card-img-top mx-auto d-block card-image mb-4" alt="{{ product.name }}" style="width: 150px; height: 150px;">
+                            
+                                <h5 class="card-title price-text" style="font-size: larger;" >{{ product.name }}</h5>
+                                <p style="color: black;">Quantity Available {{product.quantity_available}}</p>
+                        </a>
+                        </div>
+                        <div class="card-footer custom-card-footer" style="background-color: rgb(0, 0, 0);">
+                            {% if product.quantity_available > 0 %}
+                                {% if product.on_special_offer %}
+                                    {% if product.discounted_price %}
+                                        <p class="card-text price-text" style="color: rgb(255, 251, 0); font-weight: bolder;"><small class="btn btn-sm btn-danger special-offer" style="font-size: 10px;">Special Offer</small><br><del style="color: white; font-size: smaller;">Was: €{{ product.price }}</del><br> Now: €{{ product.discounted_price }}</p>
                                     {% endif %}
-                                    <div class="input-group">
-                                        <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="1" min="1" max="{{product.quantity_available}}" readonly>
-                                        <span><button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button></span>
-                                        <span><button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button></span>
-                                    </div>
-                                    <button class="btn btn-success add-cart-btn mt-2" type="button" value="{{ product.id }}">Add to Cart</button>
                                 {% else %}
-                                    <p class="text-danger">Out of stock</p>
-                                    {% endif %}
-                            </div>
+                                    <p class="card-text price-text mt-1" style="color: white;; font-weight: bolder;"><br><br>Price: €{{ product.price }}</p>
+                                {% endif %}
+                                <div class="input-group">
+                                    <input type="number" class="form-control qty-cart" id="quantity{{ product.id}}" value="1" min="1" max="{{product.quantity_available}}" readonly>
+                                    <span><button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button></span>
+                                    <span><button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button></span>
+                                </div>
+                                <button class="btn btn-warning add-cart-btn mt-2" type="button" value="{{ product.id }}">Add to Cart</button>
+                            {% else %}
+                                <p class="text-danger">Out of stock</p>
+                                {% endif %}
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>

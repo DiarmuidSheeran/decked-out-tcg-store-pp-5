@@ -2,18 +2,19 @@
 {% load static %}
 {% block content %}
 
-<div class="container-fluid mt-4 d-flex justify-content-center">
+<div class="container-fluid d-flex justify-content-center">
     <div class="row">
-        <div class="col-md-12 ml-4">
-            <h3 class="text-center mb-4"> Cart Summary </h3>
-            <div class="row">
-                {% if cart_products %}
-                
-                <div class="container text-center">
-                    <h3 class="mt-4 text-center">Subtotal: €{{ totals }}</h3>
-                    <a href="{% url 'checkout' %}" class="mb-4 btn btn-primary">Go to Checkout</a>
-                </div>
-                    <div class="table-responsive table-sm table-borderless">
+        <div class="col-md-12">
+            {% if cart_products %}
+            <div class="card text-white shadow-white mb-4" style="background-color: black; border-style: dotted; border-color: rgb(83, 10, 10); border-width: 5px; border-radius: 20px;">
+                <div class="card-body">
+                    <div class="container text-center">
+                        <h3 class="mb-4">Cart Summary</h3>
+                        <h3 class="mt-4">Subtotal: €{{ totals }}</h3>
+                        <a href="{% url 'checkout' %}" class="mb-4 btn btn-danger">Checkout <i class="fa-solid fa-cash-register" style="color: #ffffff;"></i></a>
+                    </div>
+
+                    <div class="table-responsive table-sm">
                         <table class="table table-sm">
                             <thead>
                                 <tr>
@@ -27,7 +28,6 @@
                                     <tr>
                                         <td>
                                             <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail cart-image" style="width: 50px; height: 50px;">
-                                            
                                         </td>
                                         <td>
                                             <p class="product-name" style="color: white;">{{ product.name }}</p>
@@ -45,36 +45,36 @@
                                             <div class="input-group">
                                                 <input type="number" class="form-control qty-cart small-input" id="quantity{{ product.id}}" value="{{ quantity }}" min="1" max="{{product.quantity_available}}" readonly>
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-secondary decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
-                                                    <button class="btn btn-secondary increase-quantity" data-index="{{ product.id }}" type="button">+</button>
+                                                    <button class="btn btn-info decrease-quantity" data-index="{{ product.id }}" type="button">-</button>
+                                                    <button class="btn btn-info increase-quantity" data-index="{{ product.id }}" type="button">+</button>
                                                 </div>
-                                                <button type="button" data-index="{{ product.id }}" class="btn btn-secondary update-cart">Update</button>
+                                                <button type="button" data-index="{{ product.id }}" class="btn btn-warning update-cart">Update</button>
                                                 <button type="button" data-index="{{ product.id }}" class="btn btn-danger delete-product ml-2">Remove</button>
                                             </div>
-                                           
                                         </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
-                        
-                        <div class="container-fluid mt-4 d-flex justify-content-center">
-                            <a href="{% url 'checkout' %}" class="mb-4 mr-4 btn btn-primary">Go to Checkout</a>
-                            <h3 class="mb-4 text-center">Subtotal: €{{ totals }}</h3>
-                        </div>
                     </div>
-                {% else %}
-                    <div class="container text-center">
-                        <h4>Your cart is empty</h4>
-                        <a href="{% url 'product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+
+                    <div class="container-fluid mt-4 d-flex justify-content-center">
+                        <a href="{% url 'checkout' %}" class="mb-4 mr-4 btn btn-danger">Checkout <i class="fa-solid fa-cash-register" style="color: #ffffff;"></i></a>
+                        <h3 class="mb-4 text-center">Subtotal: €{{ totals }}</h3>
                     </div>
-                {% endif %}
+                </div>
             </div>
+            {% else %}
+            <div class="container text-center">
+                <h4>Your cart is empty</h4>
+                <a href="{% url 'product_list' %}" class="btn btn-primary mt-3">Continue Shopping</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
-</div>
-</div>
+
+
 
 
 <script>
