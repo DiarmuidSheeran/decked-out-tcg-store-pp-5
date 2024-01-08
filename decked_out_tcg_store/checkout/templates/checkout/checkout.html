@@ -5,7 +5,52 @@
 <h3 class="text-center mb-4 mt-4">Checkout</h3>
 <div class="container-fluid mt-4">
     <div class="row">
-        <div class="col-md-4" style="border: 2px solid red;">
+        <div class="col-md-3"></div>
+        
+        <div class="col-md-3" id="shipping-section"> 
+            <h1>Payment</h1>
+            <form action="{% url 'checkout' %}" method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="fname" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="fname" name="fname" value="{{ user_data.fname }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lname" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lname" name="lname" value="{{ user_data.lname }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user_data.email }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="shipping_address_line_1" class="form-label">Address Line 1</label>
+                    <input type="text" class="form-control" id="shipping_address_line_1" name="shipping_address_line_1" value="{{ shipping_address.line_1 }}" placeholder="Address Line 1">
+                </div>
+                <div class="mb-3">
+                    <label for="shipping_address_line_2" class="form-label">Address Line 2</label>
+                    <input type="text" class="form-control" id="shipping_address_line_2" name="shipping_address_line_2" value="{{ shipping_address.line_2 }}" placeholder="Address Line 2">
+                </div>
+                <div class="mb-3">
+                    <label for="shipping_address_town" class="form-label">Town</label>
+                    <input type="text" class="form-control" id="shipping_address_town" name="shipping_address_town" value="{{ shipping_address.town }}" placeholder="Town">
+                </div>
+                <div class="mb-3">
+                    <label for="shipping_address_county" class="form-label">County</label>
+                    <input type="text" class="form-control" id="shipping_address_county" name="shipping_address_county" value="{{ shipping_address.county }}" placeholder="County">
+                </div>
+                <div class="mb-3">
+                    <label for="shipping_address_eircode" class="form-label">Eircode</label>
+                    <input type="text" class="form-control" id="shipping_address_eircode" name="shipping_address_eircode" value="{{ shipping_address.eircode }}" placeholder="Eircode">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Shipping Details</button>
+                
+            </form>
+            <h1>Payment</h1>
+            <button id="switch-to-shipping">Payment</button>
+        </div>
+
+        <div class="col-md-3" style="border: 2px solid red;">
             <div style="background-color: red;">  
                 <h3 class="mb-4 mt-4 text-center">Checkout Summary</h3>
             </div>
@@ -40,59 +85,9 @@
             {% endif %}
         </div>
 
+        <div class="col-md-3"></div>
+
         
-            <div class="col-md-4" id="shipping-section"> 
-                <h1>Payment</h1>
-                <form action="{% url 'checkout' %}" method="post">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="fname" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="fname" name="fname" value="{{ user_data.fname }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="lname" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lname" name="lname" value="{{ user_data.lname }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="{{ user_data.email }}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="shipping_address_line_1" class="form-label">Address Line 1</label>
-                        <input type="text" class="form-control" id="shipping_address_line_1" name="shipping_address_line_1" value="{{ shipping_address.line_1 }}" placeholder="Address Line 1">
-                    </div>
-                    <div class="mb-3">
-                        <label for="shipping_address_line_2" class="form-label">Address Line 2</label>
-                        <input type="text" class="form-control" id="shipping_address_line_2" name="shipping_address_line_2" value="{{ shipping_address.line_2 }}" placeholder="Address Line 2">
-                    </div>
-                    <div class="mb-3">
-                        <label for="shipping_address_town" class="form-label">Town</label>
-                        <input type="text" class="form-control" id="shipping_address_town" name="shipping_address_town" value="{{ shipping_address.town }}" placeholder="Town">
-                    </div>
-                    <div class="mb-3">
-                        <label for="shipping_address_county" class="form-label">County</label>
-                        <input type="text" class="form-control" id="shipping_address_county" name="shipping_address_county" value="{{ shipping_address.county }}" placeholder="County">
-                    </div>
-                    <div class="mb-3">
-                        <label for="shipping_address_eircode" class="form-label">Eircode</label>
-                        <input type="text" class="form-control" id="shipping_address_eircode" name="shipping_address_eircode" value="{{ shipping_address.eircode }}" placeholder="Eircode">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit Shipping Details</button>
-                    
-                </form>
-                <button id="switch-to-payment">Switch to Payment</button>
-            </div>
-            <div class="col-md-4">
-                <h1>Payment</h1>
-                <button id="switch-to-shipping">Payment</button>
-                <img src="{% static 'images/ra.png' %}" alt="Slifer" class="img-fluid">
-                
-            </div>
-            
-            <div class="col-md-4" style="margin-top: 100px;"> 
-               
-            </div>
-    
     </div>
 </div>
 

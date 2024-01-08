@@ -46,20 +46,52 @@ def checkout(request):
 
     else:
         user = None
+            
+            
+        shipping_address = {
+            'line_1': form.cleaned_data.get('shipping_address_line_1'),
+            'line_2': form.cleaned_data.get('shipping_address_line_2'),
+            'town': form.cleaned_data.get('shipping_address_town'),
+            'county': form.cleaned_data.get('shipping_address_county'),
+            'eircode': form.cleaned_data.get('shipping_address_eircode'),
+        }
+        user_data = {
+            'fname': form.cleaned_data.get('fname'),
+            'lname': form.cleaned_data.get('lname'),
+            'email': form.cleaned_data.get('email'),
+        }
+
+        print("Form is valid. Creating order.")
+        print(f"User: {user}")
+        print(f"Order total: {totals}")
+        print(f"Shipping address: {shipping_address}")
+
+    if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            shipping_address = {
-                'line_1': form.cleaned_data.get('shipping_address_line_1'),
-                'line_2': form.cleaned_data.get('shipping_address_line_2'),
-                'town': form.cleaned_data.get('shipping_address_town'),
-                'county': form.cleaned_data.get('shipping_address_county'),
-                'eircode': form.cleaned_data.get('shipping_address_eircode'),
-            }
-            user_data = {
-                'fname': form.cleaned_data.get('fname'),
-                'lname': form.cleaned_data.get('lname'),
-                'email': form.cleaned_data.get('email'),
-            }
+            if request.method == 'POST':
+                order = Order(
+                    user=request.user if request.user.is_authenticated else None,
+                    full_name=f"{user_data['fname']} {user_data['lname']}",
+                    email_address=f"{user_data['email']}",
+                    shipping_address=f"{shipping_address['line_1']} {shipping_address['line_2']} {shipping_address['town']} {shipping_address['county']} {shipping_address['eircode']}",
+                    total_price=cart.cart_total(),
+                )
+                order.save()
+
+                for product_id, quantity in cart.cart.items():
+                    product = Product.objects.get(pk=product_id)
+                    price_at_purchase = product.discounted_price if product.on_special_offer else product.price
+                    order_item = OrderItem(
+                        order=order,
+                        product=product,
+                        quantity=quantity,
+                        price_at_purchase=price_at_purchase,
+                    )
+                    order_item.save()
+
+                cart.clear()
+                return redirect('order_summary')
 
     context = {
         "cart_products": cart_products,

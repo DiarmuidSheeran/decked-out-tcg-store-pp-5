@@ -9,3 +9,4 @@ class CheckoutForm(forms.Form):
     fname = forms.CharField(max_length=30)
     lname = forms.CharField(max_length=30)
     email = forms.EmailField()
+    
